@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ChicSync - Your AI-powered personal stylist. Analyze outfits, get pairing suggestions, and visualize styles with virtual try-ons." />
+    <title>ChicSync</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Added scripts for ARView component -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/react-image-crop@11.0.5/dist/ReactCrop.min.css" />
+    <style>
+      :root {
+        --bg-color-1: #e0e7ff; /* indigo-100 */
+        --bg-color-2: #fae8ff; /* fuchsia-100 */
+        --bg-color-3: #dbeafe; /* blue-100 */
+        --bg-color-4: #e0f2fe; /* cyan-100 */
+      }
+
+      html.dark {
+        --bg-color-1: #1e1b4b; /* indigo-950 */
+        --bg-color-2: #4a044e; /* fuchsia-950 */
+        --bg-color-3: #172554; /* blue-950 */
+        --bg-color-4: #083344; /* cyan-950 */
+      }
+      
+      body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(-45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease-in-out infinite;
+      }
+      
+      @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes popIn {
+        0% { opacity: 0; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      @keyframes slideInFromBottom {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+      /* Refined pop-in with a gentle spring effect */
+      .animate-pop-in { animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+      /* Refined slide-up with a smoother ease curve */
+      .animate-slide-up { animation: slideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+      /* Refined slide-in with a more elegant ease-out */
+      .animate-slide-in { animation: slideInFromBottom 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
+
+      .animate-stagger-children > * {
+        animation: slideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        opacity: 0;
+      }
+      
+      /* --- Interactive Lift Effect --- */
+      .interactive-lift {
+        transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      .interactive-lift:hover:not(:disabled) {
+          transform: translateY(-3px) scale(1.01);
+      }
+      
+      /* React-Image-Crop Dark Theme Override */
+      html.dark .ReactCrop__crop-selection {
+          border: 1px dashed rgba(255, 255, 255, 0.7);
+      }
+
+    </style>
+<script>
+    // Prevents flash of unstyled content
+    (function() {
+    const theme = localStorage.getItem('chicsync-theme');
+    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+    })();
+</script>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.22.0",
+    "react-image-crop": "https://aistudiocdn.com/react-image-crop@^11.0.10",
+    "vite": "https://aistudiocdn.com/vite@^7.1.9",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.0.4"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

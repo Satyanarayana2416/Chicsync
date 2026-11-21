@@ -1,0 +1,36 @@
+[
+  {
+    "id": 49,
+    "author": "user",
+    "payload": {
+      "type": "text",
+      "text": "what is the algorithm used in the application",
+      "files": [],
+      "fileUploads": [],
+      "cMarkNode": {}
+    },
+    "createdTimestamp": 1766215887093
+  },
+  {
+    "id": 50,
+    "author": "model",
+    "payload": {
+      "type": "thinking",
+      "text": "**Investigating ChicSync's Architecture**\n\nI'm currently dissecting the structure of ChicSync, focusing on how it leverages AI. The core AI execution seems to be in `services/geminiService.ts`, which utilizes the Google Gemini API. I'm noting the UI interactions happening in `App.tsx` and how they interface with the AI-driven logic.\n\n\n\n**Unpacking Input Processing**\n\nI'm now fully immersed in the input processing phase. It's becoming clearer how the application crafts and preps data before the AI stage. User input drives mode selection, image uploads with `react-image-crop`, and metadata retrieval from `UserProfile` through `lib/db.ts` to enrich requests.\n\n\n**Deciphering AI Interaction**\n\nI've just uncovered how ChicSync interacts with the Gemini API, going beyond the initial sending of the request. The prompt now instructs Gemini to become a \"Personal Stylist and Digital Artist,\" generating both a photorealistic image and JSON analysis. Crucially, the prompt includes a key instruction to \"PRESERVE IDENTITY.\" I'm also examining the output processing: parsing the generated image and JSON verdict for rendering. The app prioritizes both visual output and product-linked analysis.\n\n\n**Detailing the Core Mechanics**\n\nNow, I'm focusing on the heart of ChicSync's processing. It is composed of a multimodal AI component using Gemini 2.5 Flash Image. This combines visual data with context from the user. Prompt engineering drives the styling logic. Also, PBKDF2 ensures secure user authentication and IndexedDB handles persistent user data.\n\n\n",
+      "cMarkNode": {}
+    },
+    "createdTimestamp": 1766215887093,
+    "doneTimestamp": 1766215898973
+  },
+  {
+    "id": 51,
+    "author": "model",
+    "payload": {
+      "type": "text",
+      "text": "ChicSync operates using a combination of **Multimodal Large Language Model (LLM)** inference, **Prompt Engineering**, and secure **Client-Side Data Management**.\n\nHere is a breakdown of the core \"algorithms\" and logic used in the application:\n\n### 1. Multimodal AI Inference (The Core Engine)\nThe heart of the application is the **Gemini 2.5 Flash Image** model. Unlike standard text-only models, this \"algorithm\" processes both visual and textual data simultaneously.\n*   **Visual Analysis:** It extracts features from uploaded photos (skin tone, body type, clothing textures, and facial identity).\n*   **Contextual Reasoning:** It combines these visual features with your **User Profile** (age, height, weight, and style preferences) to generate personalized advice rather than generic fashion tips.\n\n### 2. Digital Synthesis (Virtual Try-On)\nWhen you request a \"Match\" or \"Style Me\" look, the app uses a **conditional generation algorithm** within the Gemini model. \n*   **Identity Preservation:** The system uses specific prompt constraints to ensure the AI \"Digital Artist\" preserves your exact facial features and identity while digitally redrawing the clothing on your persona.\n*   **Diffusion & Rendering:** The model generates a new, photorealistic image based on the source clothing items provided.\n\n### 3. Personalization & Prompt Engineering\nThe service uses a **Dynamic Context Injection** algorithm. Before sending your request to the AI, it builds a complex \"Stylist Persona\" prompt that includes:\n*   **System Instructions:** Hardcoded expertise in color harmony and fashion trends.\n*   **User Context:** Your physical measurements and favorite colors retrieved from **IndexedDB**.\n*   **Localization:** Instructions to respond in your selected language (English, Spanish, Telugu, etc.).\n\n### 4. Search & Mapping (Affiliate Logic)\nThe app uses a **Query Generation Algorithm** to transform the AI's suggestions into actionable shopping links. It generates optimized search strings for **Amazon** and **Flipkart** based on the specific attributes of the suggested clothing (e.g., \"Navy Blue Slim Fit Linen Blazer\").\n\n### 5. Security & Persistence Algorithms\n*   **Authentication:** For security, it uses the **PBKDF2 (Password-Based Key Derivation Function 2)** with SHA-256 and unique salts (via the Web Crypto API) to hash and verify passwords locally.\n*   **Local Storage:** It uses **IndexedDB** (a transactional local database) to store your style history and profile data, ensuring your privacy by keeping your photos and personal details on your device.",
+      "cMarkNode": {}
+    },
+    "createdTimestamp": 1766215898975,
+    "doneTimestamp": 1766215898979
+  }
+]
